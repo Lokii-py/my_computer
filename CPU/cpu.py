@@ -65,6 +65,10 @@ class CPU:
         self.memory[mem_addr] = self.register_a
         self.pc += 1
 
+    def JUMP(self, mem_addr: int):
+        """Jump to specified memory addr"""
+        self.pc = mem_addr
+
     def HALT(self):
         """Stop the program"""
         print(" PROGRAM HALT!")
