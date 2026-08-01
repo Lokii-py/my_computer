@@ -15,9 +15,11 @@ class CPU:
     def run(self):
         """Run the CPU in FETCH-DECODE-EXECUTE CYCLE"""
         print("CPU ON:")
+        print("=== Initial CPU State ===")
         print(f" Program Counter:      {self.pc}")
         print(f" Instruction Register: {self.ir}")
         print(f" Register A:           {self.register_a}")
+        print("=== Running =============\n")
 
         while self.running:
             # Fetch the current instruction pointed by pointer
@@ -56,6 +58,11 @@ class CPU:
     def ADD(self, mem_addr: int):
         """ADD the given Value"""
         self.register_a += self.memory[mem_addr]
+        self.pc += 1
+
+    def STORE(self, mem_addr: int):
+        """Store the register value loaded in Register A"""
+        self.memory[mem_addr] = self.register_a
         self.pc += 1
 
     def HALT(self):
