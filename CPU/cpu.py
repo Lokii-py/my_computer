@@ -5,6 +5,9 @@ class CPU:
         """Initiating a CPU architecture"""
         self.running: bool = True
 
+        # Flags
+        self.ZERO_FLAG: bool | None = None
+
         # CPU required quick memory
         self.register_a: int = 0
         self.pc: int = 0
@@ -53,11 +56,13 @@ class CPU:
     def LOAD(self, mem_addr: int):
         """Load the value in accumulator"""
         self.register_a = self.memory[mem_addr]
+        self.ZERO_FLAG = (self.register_a == 0)
         self.pc += 1
 
     def ADD(self, mem_addr: int):
         """ADD the given Value"""
         self.register_a += self.memory[mem_addr]
+        self.ZERO_FLAG = (self.register_a == 0)
         self.pc += 1
 
     def STORE(self, mem_addr: int):
