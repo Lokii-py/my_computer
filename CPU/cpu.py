@@ -22,6 +22,7 @@ class CPU:
         print(f" Program Counter:      {self.pc}")
         print(f" Instruction Register: {self.ir}")
         print(f" Register A:           {self.register_a}")
+        print(f" Zero Flag:            {self.ZERO_FLAG}")
         print("=== Running =============\n")
 
         while self.running:
@@ -34,7 +35,7 @@ class CPU:
             # Execute the instruction
             func = getattr(self, op_code, None)
             if callable(func):  
-                func(mem_addr) if op_code != "HALT" else self.HALT()
+                func(mem_addr)
             else:
                 raise ValueError(f"This {op_code} cannot be run. Not Implemented!")
 
@@ -42,6 +43,7 @@ class CPU:
             print(f" Program Counter:      {self.pc}")
             print(f" Instruction Register: {self.ir}")
             print(f" Register A:           {self.register_a}")
+            print(f" Zero Flag:            {self.ZERO_FLAG}")
     
     def FETCH(self):
         """Hold the instruction in instruction register"""
@@ -74,7 +76,19 @@ class CPU:
         """Jump to specified memory addr"""
         self.pc = mem_addr
 
-    def HALT(self):
+    def COMPARE(self, mem_addr: int):
+        """See whether mem_addr's value and register_A are equal or not"""
+        self.ZERO_FLAG = (self.register_a == self.memory[mem_addr])
+        self.pc += 1
+
+    def JUMP_IF_ZERO(self, mem_addr: int):
+        """Jump to the original PC when ZERO FLAG is set"""
+        if self.ZERO_FLAG:
+            self.pc = mem_addr
+        else:
+            self.pc += 1
+
+    def HALT(self, _):
         """Stop the program"""
         print(" PROGRAM HALT!")
         self.running = False
