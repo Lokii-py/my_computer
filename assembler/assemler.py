@@ -1,6 +1,9 @@
 class Assembler:
     def __init__(self):
-        pass
+        self.symbol = {
+            "counter": 40,
+            "one": 41,
+        }
 
     def assemble(self, program: list[str]):
         """Translate the program to CPU accepted format"""
@@ -10,7 +13,7 @@ class Assembler:
 
             parts = instruction.split(" ")
             if len(parts) == 2:
-                op_code, mem_addr = instruction.split(" ")
+                op_code, mem_addr = parts
             else:
                 op_code, mem_addr = instruction.strip().upper(), None
 
@@ -19,3 +22,6 @@ class Assembler:
 
             machine_code.append((op_code, mem_addr))
         return machine_code
+
+    def resolve_operand(self):
+        pass

@@ -52,8 +52,8 @@ class CPU:
     def DECODE(self):
         """Decode the Instruction saved"""
         opcode = self.ir[0]
-        mem_addr = self.ir[1] if len(self.ir) == 2 else None
-        return opcode, mem_addr
+        operand = self.ir[1] if len(self.ir) == 2 else None
+        return opcode, operand
 
     def LOAD(self, mem_addr: int):
         """Load the value in accumulator"""
