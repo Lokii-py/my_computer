@@ -13,15 +13,20 @@ class Assembler:
 
             parts = instruction.split(" ")
             if len(parts) == 2:
-                op_code, mem_addr = parts
+                op_code = parts[0]
+                operand = self.resolve_operand(parts[1])
             else:
-                op_code, mem_addr = instruction.strip().upper(), None
+                op_code, operand = instruction.strip().upper(), None
 
             op_code = op_code.strip().upper()
-            mem_addr = int(mem_addr.strip()) if mem_addr != None else mem_addr
+            operand = int(operand) if operand != None else operand
 
-            machine_code.append((op_code, mem_addr))
+            machine_code.append((op_code, operand))
         return machine_code
 
-    def resolve_operand(self):
-        pass
+    def resolve_operand(self, operand):
+        """Resolve the Operand into number so CPU can understand it"""
+        operand = operand.strip().lower()
+        if operand.isdigit():
+            return operand
+        return self.symbol[operand]

@@ -15,15 +15,16 @@ class CPU:
 
         self.memory: Memory = Memory(size=256) # memory is an array
 
-    def run(self):
+    def run(self, debug=False):
         """Run the CPU in FETCH-DECODE-EXECUTE CYCLE"""
-        print("CPU ON:")
-        print("=== Initial CPU State ===")
-        print(f" Program Counter:      {self.pc}")
-        print(f" Instruction Register: {self.ir}")
-        print(f" Register A:           {self.register_a}")
-        print(f" Zero Flag:            {self.ZERO_FLAG}")
-        print("=== Running =============\n")
+        print("CPU Running:")
+        if debug:
+            print("=== Initial CPU State ===")
+            print(f" Program Counter:      {self.pc}")
+            print(f" Instruction Register: {self.ir}")
+            print(f" Register A:           {self.register_a}")
+            print(f" Zero Flag:            {self.ZERO_FLAG}")
+            print("=== Running =============\n")
 
         while self.running:
             # Fetch the current instruction pointed by pointer
