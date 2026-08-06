@@ -7,4 +7,3 @@ class Loader:
         for instruction in translator_out:
             cpu.memory[start_addr] = instruction
             start_addr += 1
-        

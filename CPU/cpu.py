@@ -1,5 +1,6 @@
 from .memory import Memory
 
+
 class CPU:
     def __init__(self):
         """Initiating a CPU architecture"""
@@ -13,7 +14,7 @@ class CPU:
         self.pc: int = 0
         self.ir: tuple = ()
 
-        self.memory: Memory = Memory(size=256) # memory is an array
+        self.memory: Memory = Memory(size=256)  # memory is an array
 
     def run(self, debug=False):
         """Run the CPU in FETCH-DECODE-EXECUTE CYCLE"""
@@ -35,7 +36,7 @@ class CPU:
 
             # Execute the instruction
             func = getattr(self, op_code, None)
-            if callable(func):  
+            if callable(func):
                 func(mem_addr)
             else:
                 raise ValueError(f"This {op_code} cannot be run. Not Implemented!")
@@ -45,7 +46,7 @@ class CPU:
             print(f" Instruction Register: {self.ir}")
             print(f" Register A:           {self.register_a}")
             print(f" Zero Flag:            {self.ZERO_FLAG}")
-    
+
     def FETCH(self):
         """Hold the instruction in instruction register"""
         self.ir = self.memory[self.pc]
@@ -59,13 +60,13 @@ class CPU:
     def LOAD(self, mem_addr: int):
         """Load the value in accumulator"""
         self.register_a = self.memory[mem_addr]
-        self.ZERO_FLAG = (self.register_a == 0)
+        self.ZERO_FLAG = self.register_a == 0
         self.pc += 1
 
     def ADD(self, mem_addr: int):
         """ADD the given Value"""
         self.register_a += self.memory[mem_addr]
-        self.ZERO_FLAG = (self.register_a == 0)
+        self.ZERO_FLAG = self.register_a == 0
         self.pc += 1
 
     def STORE(self, mem_addr: int):
@@ -79,7 +80,7 @@ class CPU:
 
     def COMPARE(self, mem_addr: int):
         """See whether mem_addr's value and register_A are equal or not"""
-        self.ZERO_FLAG = (self.register_a == self.memory[mem_addr])
+        self.ZERO_FLAG = self.register_a == self.memory[mem_addr]
         self.pc += 1
 
     def JUMP_IF_ZERO(self, mem_addr: int):
