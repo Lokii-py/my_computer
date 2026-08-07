@@ -1,0 +1,14 @@
+counter: DATA 0
+one: DATA 1
+ten: DATA 10
+
+START:
+LOAD counter
+ADD one
+STORE counter
+COMPARE ten
+JUMP_IF_ZERO END
+JUMP START
+
+END:
+HALT
