@@ -19,7 +19,7 @@ class Assembler:
                 op_code, operand = instruction.strip().upper(), None
 
             op_code = op_code.strip().upper()
-            operand = int(operand) if operand != None else operand
+            operand = int(operand) if operand is not None else operand
 
             machine_code.append((op_code, operand))
         return machine_code
