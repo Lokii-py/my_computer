@@ -12,15 +12,16 @@ def test_assembler_and_loader():
     loader = Loader()
 
     program = [
+        "counter: DATA 0",
         "LOAD counter",
         "ADD 41",
         "HALT",
     ]
 
-    out = assembler.assemble(program)
+    out, data = assembler.assemble(program)
     assert out == [("LOAD", 40), ("ADD", 41), ("HALT", None)]
 
-    loader.load(cpu, out, start_addr=10)
+    loader.load(cpu, out, data, start_addr=10)
     assert cpu.memory[10] == ("LOAD", 40)
 
     cpu.run()
