@@ -1,14 +1,17 @@
 """Act like Operating Console for now"""
 
+import logging
 import argparse
 
 from CPU.cpu import CPU
-from assembler.assemler import Assembler
+from assembler.assembler import Assembler
 from loader.loader import Loader
+
+logging.basicConfig(level=logging.DEBUG)
 
 
 def main():
-    parser = argparse.ArgumentParser(desc="takes assembly program")
+    parser = argparse.ArgumentParser(description="takes assembly program")
 
     parser.add_argument(
         "asm_path", help="Path to the assmebly program e.g. ./programs/counter.asm"
@@ -31,10 +34,10 @@ def main():
     assembler = Assembler()
     loader = Loader()
 
-    out = assembler.assemble(program)
-    print(out)  # debug | should be in trace or debug later
+    machine_code, data_segment = assembler.assemble(program)
+    # logging.debug(f"Machine translation:", machine_code)  # debug | should be in trace or debug later
 
-    loader.load(cpu, out)
+    loader.load(cpu, machine_code, data_segment)
     cpu.run(debug=args.debug)
 
 
