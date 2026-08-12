@@ -69,6 +69,12 @@ class CPU:
         self.ZERO_FLAG = self.register_a == 0
         self.pc += 1
 
+    def SUB(self, mem_addr: int):
+        """Subtract the given value"""
+        self.register_a -= self.memory[mem_addr]
+        self.ZERO_FLAG = self.register_a == 0
+        self.pc += 1
+
     def STORE(self, mem_addr: int):
         """Store the register value loaded in Register A"""
         self.memory[mem_addr] = self.register_a

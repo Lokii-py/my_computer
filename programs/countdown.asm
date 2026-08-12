@@ -1,0 +1,12 @@
+counter: DATA 10
+one: DATA 1
+
+START:
+LOAD counter
+SUB one
+STORE counter
+JUMP_IF_ZERO END
+JUMP START
+
+END:
+HALT
