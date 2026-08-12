@@ -40,12 +40,12 @@ class CPU:
                 func(mem_addr)
             else:
                 raise ValueError(f"This {op_code} cannot be run. Not Implemented!")
-
-            print("----------------------------------")
-            print(f" Program Counter:      {self.pc}")
-            print(f" Instruction Register: {self.ir}")
-            print(f" Register A:           {self.register_a}")
-            print(f" Zero Flag:            {self.ZERO_FLAG}")
+            if debug:
+                print("----------------------------------")
+                print(f" Program Counter:      {self.pc}")
+                print(f" Instruction Register: {self.ir}")
+                print(f" Register A:           {self.register_a}")
+                print(f" Zero Flag:            {self.ZERO_FLAG}")
 
     def FETCH(self):
         """Hold the instruction in instruction register"""
