@@ -1,0 +1,9 @@
+a: DATA 8
+b: DATA 0
+
+START:
+LOAD a
+STORE b
+
+END:
+HALT
