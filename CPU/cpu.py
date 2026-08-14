@@ -82,6 +82,11 @@ class CPU:
         self.ZERO_FLAG = self.register_a == 0
         self.pc += 1
 
+    def INC(self, mem_addr: int):
+        """Increment the number by one"""
+        self.memory[mem_addr] += 1
+        self.pc += 1
+
     def STORE(self, mem_addr: int):
         """Store the register value loaded in Register A"""
         self.memory[mem_addr] = self.register_a

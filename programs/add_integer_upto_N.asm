@@ -1,0 +1,20 @@
+a: DATA 0
+N: DATA 100
+one: DATA 1
+count: DATA 0
+adder: DATA 1
+
+
+START:
+LOAD a
+ADD adder
+STORE a
+INC count
+INC adder
+LOAD N
+COMPARE count
+JUMP_IF_ZERO END
+JUMP START
+
+END:
+HALT
