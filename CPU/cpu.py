@@ -16,7 +16,7 @@ class CPU:
 
         self.memory: Memory = Memory(size=256)  # memory is an array
 
-    def run(self, debug=False):
+    def run(self, debug=False, max_steps=100000):
         """Run the CPU in FETCH-DECODE-EXECUTE CYCLE"""
         print("CPU Running:")
         if debug:
@@ -27,8 +27,12 @@ class CPU:
             print(f" Zero Flag:            {self.ZERO_FLAG}")
             print("=== Running =============\n")
 
+        steps = 0
         while self.running:
             # Fetch the current instruction pointed by pointer
+
+            if steps >= max_steps:
+                raise RuntimeError("Possible Infinte Loop")
             self.FETCH()
 
             # Decode the instruction
@@ -40,6 +44,9 @@ class CPU:
                 func(mem_addr)
             else:
                 raise ValueError(f"This {op_code} cannot be run. Not Implemented!")
+
+            steps += 1
+
             if debug:
                 print("----------------------------------")
                 print(f" Program Counter:      {self.pc}")
