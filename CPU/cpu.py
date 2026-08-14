@@ -14,6 +14,10 @@ class CPU:
         self.pc: int = 0
         self.ir: tuple = ()
 
+        # Stack
+        self.stack = []
+
+        # memory
         self.memory: Memory = Memory(size=256)  # memory is an array
 
     def run(self, debug=False, max_steps=100000):
@@ -86,6 +90,15 @@ class CPU:
         """Increment the number by one"""
         self.memory[mem_addr] += 1
         self.pc += 1
+
+    def CALL(self, mem_addr):
+        """append the mem_addr of where the function is called"""
+        self.stack.append(self.pc + 1)
+        self.pc = mem_addr
+
+    def RETURN(self, _):
+        """Move the pc back to the last function call"""
+        self.pc = self.stack.pop()
 
     def STORE(self, mem_addr: int):
         """Store the register value loaded in Register A"""
